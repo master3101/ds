@@ -1,0 +1,83 @@
+**************************DS practical 6********************************
+Q.1 what is linear search and binary search
+
+Linear Search:
+Linear search is a simple search algorithm used to find a target value within a list or array. It sequentially checks each element in the list until the target value is found or the end of the list is reached. It starts from the first element and compares it with the target value, then moves to the next element and continues the comparison until a match is found or the end of the list is reached.
+
+Linear search is straightforward to implement, but its time complexity is O(n) in the worst case, where n is the number of elements in the list. It is suitable for small lists or when the elements are not in a particular order.
+
+Binary Search:
+Binary search is an efficient search algorithm that is applicable to sorted lists or arrays. It follows a divide-and-conquer approach to find the target value by repeatedly dividing the search space in half. It compares the target value with the middle element of the sorted list and determines if it is greater, smaller, or equal. Based on this comparison, it eliminates half of the search space and continues the process on the remaining half. It repeats this process until the target value is found or the search space is reduced to an empty subarray.
+
+Binary search has a time complexity of O(log n) in the worst case, where n is the number of elements in the sorted list. It is significantly more efficient than linear search for large lists, as it reduces the search space by half in each iteration.
+
+Binary search requires the list to be sorted, which may require an initial sorting step. It is commonly used when the list is sorted and frequent searching needs to be performed.
+
+**********************code*********************
+Q1. Write a program To perform linear search on list of elements
+
+def linear_search(arr, target):
+    # Traverse through the list
+    for i in range(len(arr)):
+        # Check if the current element matches the target
+        if arr[i] == target:
+            return i  # Return the index of the target if found
+    
+    return -1  # Return -1 if the target is not found
+
+# Test the implementation
+arr = [5, 9, 3, 2, 7, 1]
+target = 7
+
+index = linear_search(arr, target)
+
+if index != -1:
+    print(f"Target found at index {index}")
+else:
+    print("Target not found in the list")
+
+
+output:
+Target found at index 4
+
+Q2. WAP to perform binary search on list of elements
+
+def binary_search(arr, target):
+    low = 0
+    high = len(arr) - 1
+    
+    while low <= high:
+        mid = (low + high) // 2
+        
+        # Check if the target is equal to the middle element
+        if arr[mid] == target:
+            return mid
+        
+        # If the target is smaller, search the left half of the list
+        elif arr[mid] > target:
+            high = mid - 1
+        
+        # If the target is larger, search the right half of the list
+        else:
+            low = mid + 1
+    
+    return -1  # Return -1 if the target is not found
+
+# Test the implementation
+arr = [1, 2, 3, 5, 7, 9]
+target = 7
+
+index = binary_search(arr, target)
+
+if index != -1:
+    print(f"Target found at index {index}")
+else:
+    print("Target not found in the list")
+
+
+output
+Target found at index 4
+
+
+
+

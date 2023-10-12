@@ -1,0 +1,86 @@
+prac3
+q1
+class queue:
+    def __init__(self):
+        self.items= []
+        
+    def isEmpty(self):
+        return self.items==[]
+    
+    def enqueue(self, item):
+        self.items.insert(0,item)
+
+    def dequeue(self):
+        return self.items.pop()
+
+    def size(self):
+        return len(self.items)
+
+s=queue()
+print(s.isEmpty())
+s.enqueue("abc")
+s.enqueue("xyz")
+s.enqueue("pqr")
+print("length=",s.size())
+print("data=",s.dequeue())
+print("data=",s.dequeue())
+print("data=",s.dequeue())
+print("length=",s.size())
+
+
+q2
+#write a program to implement the concept of circular queue in python.
+#write a program to perform various operations on given queue in python.
+
+class CircularQueue:
+    #Constructor
+    def __init__(self):
+        self.queue=list()
+        self.head=0
+        self.tail=0
+        self.maxSize= 8
+
+
+    #adding elements to the queue
+    def enqueue(self,data):
+        if self.size()==self.maxSize-1:
+            return("queue Full")
+        self.queue.append(data)
+        self.tail=(self.tail+1)% self.maxSize
+        return True
+
+    #removing elements from the queue
+
+    def dequeue (self):
+        if self.size()==0:
+            return("queue empty!")
+        data= self.queue[self.head]
+        self.head=(self.head+1)% self.maxSize
+        return data
+
+    #Calculating the size of the queue
+    def size(self):
+        if self.tail>=self.head:
+            return (self.tail-self.head)
+        return (self.maxSize-(self.head-self.tail))
+
+q= CircularQueue()
+print(q.enqueue(1))
+print(q.enqueue(2))
+print(q.enqueue(3))
+print(q.enqueue(4))
+print(q.enqueue(5))
+print(q.enqueue(6))
+print(q.enqueue(7))
+print(q.enqueue(8))
+print(q.enqueue(9))
+print(q.enqueue(10))
+print(q.dequeue())
+print(q.dequeue())
+print(q.dequeue())
+print(q.dequeue())
+print(q.dequeue())
+print(q.dequeue())
+print(q.dequeue())
+print(q.dequeue())
+print(q.dequeue())

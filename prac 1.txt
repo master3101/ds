@@ -1,0 +1,167 @@
+prac 1
+q1
+
+#numtype
+a=5
+print("the type of a is ",type(a))
+b=22.5
+print("the type of b is ",type(b))
+c=1+4j
+print("the type of c",type(c))
+
+#string
+str="hi hello good morning"
+print(str)
+
+#list
+list=[1,"hi","python",2]
+
+#type of list
+print(type(list))
+
+#print list
+print(list)
+
+#slicing list
+print(list[0:2])
+print(list[0:2])
+
+#using + concantenation
+print(list + list)
+
+#using * concantenation
+print(list * 4)
+
+#tuple
+tup=(1 ,"jitesh" ,"anu",6)
+
+#type
+print(type(tup))
+
+#print tup
+print(tup)
+
+#slicing tup
+print(tup[0:1])
+print(tup[0:3])
+
+#+
+print(tup + tup)
+
+#*
+print(tup * 5)
+
+#dict
+dict={1:"anu" , 2:"jitesh" , 3:"rames"}
+
+#print dic
+print(dict)
+
+#accesing usind key values
+print("1st name is "+dict[1])
+print("2nd name is "+dict[3])
+
+print(dict.keys())
+print(dict.values())
+
+
+q2
+import array as ar
+newarr = ar.array('d', [2.1, 4.5, 5.5])
+print(newarr)
+
+#Slicing python array#
+import array as ar
+newarray = ar.array('d', [2.1, 4.5,3.5,4.2,3.3, 5.5])
+print("First element:", newarray[0])
+print("Second element:", newarray[1])
+print("Last element:", newarray[-1])
+print(newarray[2:5]) # 3rd to 5th
+print(newarray[:])   # beginning to end
+
+#Changing Element#
+import array as ar
+num = ar.array('i', [1, 2, 3, 5, 7, 10])
+num[0] = 0    
+print(num) 
+
+# Adding Element#
+import array as ar
+num = ar.array('i', [1, 2, 3])
+ln=len(num)
+print(ln) #length
+num[0] = 0  #changing first element  
+print(num)
+num.append(4) #appending 4 to array
+print(num)    
+num.extend([5, 6, 7]) #extending numbers with 5,6,7
+print(num)
+
+# Insertion operation#
+
+import array as ar
+num = ar.array('i', [1, 2, 3, 5, 7, 10])
+num.insert(2,9)
+print(num)
+
+# Deletion operation#
+
+import array as ar
+num = ar.array('i', [1, 2, 3, 5, 7, 10])
+num.remove(7)
+for x in num:
+ print(x)
+
+
+q3
+# Method 1#
+set1 = set() 
+set2 = set() 
+  
+# Adding elements to set1 
+for i in range(1, 6): 
+    set1.add(i) 
+  
+# Adding elements to set2 
+for i in range(3, 8): 
+    set2.add(i) 
+  
+print("Set1 = ", set1) 
+print("Set2 = ", set2) 
+print("\n") 
+  
+# Union of set1 and set2 
+set3 = set1 | set2 # set1.union(set2) 
+print("Union of Set1 & Set2: Set3 = ", set3) 
+  
+# Intersection of set1 and set2 
+set4 = set1 & set2 # set1.intersection(set2) 
+print("Intersection of Set1 & Set2: Set4 = ", set4) 
+print("\n") 
+  
+# Checking relation between set3 and set4 
+if set3 > set4: # set3.is superset(set4) 
+    print("Set3 is superset of Set4") 
+elif set3 < set4: # set3.is subset(set4) 
+    print("Set3 is subset of Set4") 
+else : # set3 == set4 
+    print("Set3 is same as Set4") 
+  
+# displaying relation between set4 and set3 
+if set4 < set3: # set4.is subset(set3) 
+    print("Set4 is subset of Set3") 
+    print("\n")
+    
+# difference between set3 and set4 
+set5 = set3 - set4 
+print("Elements in Set3 and not in Set4: Set5 = ", set5) 
+print("\n") 
+  
+# Removing all the values of set5 
+set5.clear() 
+  
+print("After applying clear on sets Set5: ") 
+print("Set5 = ", set5) 
+
+
+

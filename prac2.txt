@@ -1,0 +1,77 @@
+prac2
+q1
+class Stack:
+    def __init__(self, size=10):
+        self._data = []
+        self._size =size
+        
+    def __len(self):
+        return len (self._size)
+    
+    def is_empty(self):
+        return len (self._data) <=0
+    
+    def push(self, e):
+        if len (self._data) >= self._size:
+            raise Exception ('stack overflow')
+        else:
+            self._data.append(e)
+    def pop (self) :
+        if len (self._data) <= 0:
+            raise Exception ('Stack underflow')
+        else:
+            return self._data.pop ()
+        def top (self) :
+            if len(self._data) <= 0:
+                raise Empty ('Stack is Empty')
+            else:
+                return self._data[-1]
+           
+     
+stack=Stack (7)
+stack.push (2)
+stack.push (4)
+stack.push (3)
+stack.push (9)
+stack.push (6)
+print ('stack: ', stack._data)
+print ('stack length:', stack._size)
+print ('IsEmpty: ',stack.is_empty ())
+print ('Peek: ',stack.pop())
+print ('Popped: ', stack.pop ())
+print ('Stack: ', stack._data)
+print ('Peek:',stack.pop ())
+print ('Stack: ', stack._data)
+
+
+q2
+
+#infix to postfix
+output = []
+operator = []
+priority = {'{':0,'+':1,'-':1,'*':2,'/':2,'^':3}
+exp = input("enter infix expression: ")
+for ch in exp:
+    if(ch=='('):
+        operator.append(ch)
+    elif (ch==')'):
+        while(operator[-1]!='('):
+            ele=operator.pop()
+            output.append(ele)
+        operator.pop()#remove '('from stack
+    elif(ch=='^' or ch=='*'or ch=='/'or ch=='+'or ch=='-'):
+        while(len(operator)>0) and(priority.get(operator[-1],0)>= priority[ch]):
+            ele=operator.pop()
+            output.append(ele)
+            operator.append(ch)
+         
+        else:
+            output.append(ch)
+while(len(operator)!=0):
+    ele=operator.pop()
+    output.append(ele)
+
+print("infix expression =",exp)
+print("postfix expression =",''.join(output))
+
+

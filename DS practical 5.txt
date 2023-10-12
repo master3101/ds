@@ -1,0 +1,230 @@
+**************************************** DS practical 5******************************
+Q1. what is bubble sort, insertion sort, selection sort, quick sort and merge sort
+
+1. Bubble Sort:
+
+Bubble sort is a simple comparison-based sorting algorithm.
+It repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order.
+The largest (or smallest, depending on the sorting order) element gradually "bubbles" to its correct position in each iteration.
+Bubble sort has a time complexity of O(n^2) in the average and worst cases.
+
+2. Insertion Sort:
+
+Insertion sort is a comparison-based sorting algorithm that builds the final sorted array one element at a time.
+It iterates through the array, taking an element from the unsorted portion and inserting it into the correct position in the sorted portion.
+It shifts other elements if necessary to make room for the current element.
+Insertion sort has a time complexity of O(n^2) in the average and worst cases but performs well on partially sorted or small arrays.
+
+3. Selection Sort:
+
+Selection sort is a simple comparison-based sorting algorithm that repeatedly finds the minimum (or maximum) element from the unsorted portion and places it at the beginning of the sorted portion.
+It divides the array into two portions: sorted and unsorted.
+Selection sort has a time complexity of O(n^2) in the average and worst cases but does fewer swaps compared to bubble sort.
+
+4. Quick Sort:
+
+Quick sort is a widely used efficient sorting algorithm based on the divide-and-conquer approach.
+It selects a pivot element, partitions the remaining elements into two subarrays (less than or equal to the pivot and greater than the pivot), and recursively applies the same process to the subarrays.
+Quick sort has an average time complexity of O(n log n) and a worst-case time complexity of O(n^2), but it is often faster in practice due to its average-case behavior.
+It is an in-place sorting algorithm but requires additional memory for the recursive calls.
+
+5. Merge Sort:
+
+Merge sort is an efficient sorting algorithm based on the divide-and-conquer approach.
+It divides the array into two halves recursively until each subarray contains only one element.
+It then merges the sorted subarrays by comparing the elements and placing them in the correct order.
+Merge sort has a time complexity of O(n log n) in all cases and is stable (preserves the relative order of elements with equal values).
+It requires additional memory for merging the subarrays but can be implemented with optimizations to minimize the memory usage.
+
+
+
+
+Q1. Write a program for implementing bubble sort in python
+
+def bubble_sort(arr):
+    n = len(arr)
+    
+    # Traverse through all array elements
+    for i in range(n):
+        # Last i elements are already in place
+        for j in range(0, n-i-1):
+            # Swap if the element found is greater than the next element
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+
+# Test the implementation
+arr = [64, 34, 25, 12, 22, 11, 90]
+
+print("Original array:", arr)
+
+bubble_sort(arr)
+
+print("Sorted array:", arr)
+
+
+
+output;
+Original array: [64, 34, 25, 12, 22, 11, 90]
+Sorted array: [11, 12, 22, 25, 34, 64, 90]
+
+Q2. Write a python program  for implementing insertion sort 
+
+def insertion_sort(arr):
+    # Traverse through 1 to len(arr)
+    for i in range(1, len(arr)):
+        key = arr[i]  # Current element to be inserted at the right position
+        
+        # Move elements of arr[0...i-1], that are greater than key, to one position ahead of their current position
+        j = i-1
+        while j >= 0 and arr[j] > key:
+            arr[j+1] = arr[j]
+            j -= 1
+        
+        arr[j+1] = key
+
+# Test the implementation
+arr = [64, 34, 25, 12, 22, 11, 90]
+
+print("Original array:", arr)
+
+insertion_sort(arr)
+
+print("Sorted array:", arr)
+
+
+output
+Original array: [64, 34, 25, 12, 22, 11, 90]
+Sorted array: [11, 12, 22, 25, 34, 64, 90]
+
+
+Q3. Write a program   for implementing  selection sort in python 
+
+
+
+def selection_sort(arr):
+    # Traverse through all array elements
+    for i in range(len(arr)):
+        # Find the minimum element in the remaining unsorted array
+        min_index = i
+        for j in range(i+1, len(arr)):
+            if arr[j] < arr[min_index]:
+                min_index = j
+        
+        # Swap the found minimum element with the first element
+        arr[i], arr[min_index] = arr[min_index], arr[i]
+
+# Test the implementation
+arr = [64, 34, 25, 12, 22, 11, 90]
+
+print("Original array:", arr)
+
+selection_sort(arr)
+
+print("Sorted array:", arr)
+
+output
+Original array: [64, 34, 25, 12, 22, 11, 90]
+Sorted array: [11, 12, 22, 25, 34, 64, 90]
+
+
+Q4. WAP for implementing quick sort in python.
+
+
+def partition(arr, low, high):
+    pivot = arr[high]  # Choose the last element as the pivot
+    i = low - 1  # Index of the smaller element
+
+    for j in range(low, high):
+        # If the current element is smaller than or equal to the pivot
+        if arr[j] <= pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
+
+    # Place the pivot element at its correct position
+    arr[i+1], arr[high] = arr[high], arr[i+1]
+
+    return i + 1
+
+def quick_sort(arr, low, high):
+    if low < high:
+        # Partition the array and get the pivot index
+        pivot_index = partition(arr, low, high)
+
+        # Recursively sort the subarrays on both sides of the pivot
+        quick_sort(arr, low, pivot_index - 1)
+        quick_sort(arr, pivot_index + 1, high)
+
+# Test the implementation
+arr = [64, 34, 25, 12, 22, 11, 90]
+
+print("Original array:", arr)
+
+quick_sort(arr, 0, len(arr) - 1)
+
+print("Sorted array:", arr)
+
+
+output
+Original array: [64, 34, 25, 12, 22, 11, 90]
+Sorted array: [11, 12, 22, 25, 34, 64, 90]
+
+
+Q5. WAP for implementing Merge sort in python 
+
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    # Divide the array into two halves
+    mid = len(arr) // 2
+    left_half = arr[:mid]
+    right_half = arr[mid:]
+    
+    # Recursively sort the two halves
+    left_half = merge_sort(left_half)
+    right_half = merge_sort(right_half)
+    
+    # Merge the sorted halves
+    return merge(left_half, right_half)
+
+def merge(left, right):
+    merged = []
+    left_index, right_index = 0, 0
+    
+    # Merge the two sorted arrays
+    while left_index < len(left) and right_index < len(right):
+        if left[left_index] < right[right_index]:
+            merged.append(left[left_index])
+            left_index += 1
+        else:
+            merged.append(right[right_index])
+            right_index += 1
+    
+    # Add the remaining elements from the left array
+    while left_index < len(left):
+        merged.append(left[left_index])
+        left_index += 1
+    
+    # Add the remaining elements from the right array
+    while right_index < len(right):
+        merged.append(right[right_index])
+        right_index += 1
+    
+    return merged
+
+# Test the implementation
+arr = [64, 34, 25, 12, 22, 11, 90]
+
+print("Original array:", arr)
+
+sorted_arr = merge_sort(arr)
+
+print("Sorted array:", sorted_arr)
+
+
+output
+Original array: [64, 34, 25, 12, 22, 11, 90]
+Sorted array: [11, 12, 22, 25, 34, 64, 90]
+
+
+

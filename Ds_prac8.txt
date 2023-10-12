@@ -1,0 +1,144 @@
+************DS prac 8**************
+
+#Q1 python hash() function example
+#calling function
+result1 = hash(21) # integer value
+result2 = hash(22.2) # decimal value
+result3 = hash("javatpoint") # string value
+result4 = hash((1,2,22)) # tuple value
+
+#displaying result
+print(result1)
+print(result2)
+print(result3)
+print(result4)
+
+output
+21
+461168601842737174
+6521402625402941597
+-3071373453011114930
+
+
+
+#Q2 customer
+class Customer:
+    def __init__(self,value):
+        self.value  = value
+    def __hash__(self):
+        return hash(self.value)
+alice = Customer(1000)
+bob = Customer(1000)
+print(alice==bob)
+print(alice is bob)
+print(hash(alice) == hash(bob))
+
+
+output
+False
+False
+True
+
+#q3. passing new custom object to the function
+class student:
+    def __init__(self,name,email):
+        self.name = name
+        self.email = email
+student = student("anushree", "anushreemore02@gmail.com")
+#calling function
+result=hash(student) #object
+#displaying result
+print(result)
+
+
+output
+181153724182
+
+#Q4. python 3 code to demonstrate working of hash
+
+#initializing objects
+int_val = 4
+str_val = 'GeeksforGeeks'
+flt_val =  24.56
+
+print("the integer hash value is : " + str(hash(int_val)))
+print("the string hash value is : " + str(hash(str_val)))
+print("the float hash value is : " + str(hash(flt_val)))
+
+output
+the integer hash value is : 4
+the string hash value is : 7860758794185972025
+the float hash value is : 1291272085159665688
+
+
+
+#Q5. write a program to perform insert, update and delete opeartions on hash
+
+#create empty hash table
+hash_table = [[] for _ in range(10)]
+print(hash_table)
+
+#insert data into hash table
+def insert(hash_table, key, value):
+    hash_key =  hash(key) % len(hash_table)
+    key_exists = False
+    bucket = hash_table[hash_key]
+    for i, kv in enumerate(bucket):
+        k, v = kv
+        if key == k:
+            key_exists = True
+            break
+    if key_exists:
+        bucket[i] = ((key, value))
+    else:
+        bucket.append((key, value))
+
+insert(hash_table, 10, 'France')
+insert(hash_table, 25, 'Spain')
+insert(hash_table, 20, 'Japan')
+print(hash_table)
+
+
+#search an element in hash table
+def search(hash_table, key):
+    hash_key = hash(key) % len(hash_table)
+    bucket = hash_table [hash_key]
+    for i, kv in enumerate(bucket):
+        k, v = kv
+        if key == k:
+            return v
+
+print (search(hash_table, 10))
+print (search(hash_table, 20))
+print (search(hash_table, 30))
+
+#delete an element from hash table
+def delete(hash_table, key):
+    hash_key = hash(key) % len(hash_table)
+    key_exits = False
+    bucket = hash_table[hash_key]
+    for i, kv in enumerate(bucket):
+        k, v = kv
+        if key == k:
+            key_exists = True
+            break
+    if key_exists:
+        del bucket[i]
+        print('key {} deleted '.format(key))
+    else:
+        print('key {} not found '.format(key))
+
+delete(hash_table, 10)
+print(hash_table)
+
+
+output
+[[], [], [], [], [], [], [], [], [], []]
+[[(10, 'France'), (20, 'Japan')], [], [], [], [], [(25, 'Spain')], [], [], [], []]
+France
+Japan
+None
+key 10 deleted 
+[[(20, 'Japan')], [], [], [], [], [(25, 'Spain')], [], [], [], []]
+
+

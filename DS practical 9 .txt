@@ -1,0 +1,158 @@
+******************* DS practical 9 ******************
+Q1. Write a program to store and display graph data structure using adjacency matrix in Python.
+
+
+#PR9Q1
+
+class Graph:
+    def __init__(self, graph_dict):
+        self.graph_dict = graph_dict
+
+    def adj_matrices(self, ver):
+        adj_mat = [[0]*ver for i in range(ver)]
+        for i in list(self.graph_dict.keys()):
+            for j in self.graph_dict[i]:
+                adj_mat[i][j],adj_mat[j][i] = 1,1
+        return adj_mat
+
+gd = {
+    0 : [1,2,3],
+    1 : [2,3]
+    }
+
+graph = Graph(gd)
+
+for row in graph.adj_matrices(4):
+    print(" ".join(map(str, row)))
+
+output :
+0 1 1 1
+1 0 1 1
+1 1 0 0
+1 1 0 0
+
+Q2. Write a program to implement graph traversal (BFS/DFS).
+
+def bfs(graph, start):
+    visited = set()
+    queue = [start]
+    
+    while queue:
+        vertex = queue.pop(0)
+        if vertex not in visited:
+            print(vertex, end=" ")
+            visited.add(vertex)
+            queue.extend(graph[vertex] - visited)
+            
+def dfs(graph, start):
+    visited = set()
+    stack = [start]
+    
+    while stack:
+        vertex = stack.pop()
+        if vertex not in visited:
+            print(vertex, end=" ")
+            visited.add(vertex)
+            stack.extend(graph[vertex] - visited)
+            
+# Example graph represented as a dictionary
+graph = {
+    'A': {'B', 'C'},
+    'B': {'A', 'D', 'E'},
+    'C': {'A', 'F'},
+    'D': {'B'},
+    'E': {'B', 'F'},
+    'F': {'C', 'E'}
+}
+
+print("BFS traversal starting from vertex 'A':")
+bfs(graph, 'A')
+print("\nDFS traversal starting from vertex 'A':")
+dfs(graph, 'A')
+
+output:
+BFS traversal starting from vertex 'A':
+A B C D E F 
+DFS traversal starting from vertex 'A':
+A C F E B D 
+
+Q3.Write a program for checking whether a given graph G has a simple path from source S to destination D. Assume the graph G is represented using adjacency matrix.
+
+#PR9Q3
+
+class Graph:
+    def __init__(self, graph_dict):
+        self.graph_dict = graph_dict
+
+    def adj_matrices(self, ver):
+        adj_mat = [[0]*ver for i in range(ver)]
+        for i in list(self.graph_dict.keys()):
+            for j in self.graph_dict[i]:
+                adj_mat[i][j],adj_mat[j][i] = 1,1
+        return adj_mat
+
+gd = {
+    0 : [1,2,3],
+    1 : [2,3]
+    }
+
+graph = Graph(gd)
+
+am = graph.adj_matrices(4)
+
+
+u, v = map(int, input("Enter the source and destination vertex: ").split())
+
+if (am[u][v]):
+    print(f"There exits a path from {u} to {v}")
+else:
+    print(f"There doesn't exits a path from {u} to {v}")
+
+output:
+NAI PATA INPUT KYA DALNA HAI
+
+
+
+Q4. Write a program for finding Shortest Path diagram in Python
+
+def find_shortest_path(graph, start, end):
+    if start not in graph or end not in graph:
+        return None
+    
+    queue = [(start, [start])]
+    
+    while queue:
+        vertex, path = queue.pop(0)
+        for neighbor in graph[vertex]:
+            if neighbor not in path:
+                new_path = path + [neighbor]
+                if neighbor == end:
+                    return new_path
+                queue.append((neighbor, new_path))
+    
+    return None
+
+# Example graph represented as a dictionary
+graph = {
+    'A': ['B'],
+    'B': ['A','D', 'E'],
+    'C': ['F'],
+    'D':['B'],
+    'E':['B','F'],
+    'F': ['C','E']
+}
+
+start_node = 'A'
+end_node = 'C'
+
+shortest_path = find_shortest_path(graph, start_node, end_node)
+if shortest_path:
+    print(f"Shortest path from {start_node} to {end_node}: {shortest_path}")
+else:
+    print(f"No path found from {start_node} to {end_node}")
+
+output:
+Shortest path from A to C: ['A', 'B', 'E', 'F', 'C']
+
+
+

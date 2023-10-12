@@ -1,0 +1,82 @@
+**************DS practical 7*****************
+
+
+Counting Sort is a sorting algorithm that works well for sorting integers when the range of values to be sorted is relatively small. It is an efficient algorithm with a time complexity of O(n + k), where n is the number of elements to be sorted and k is the range of input values. Counting Sort does not use comparisons to sort elements, which makes it faster than many other comparison-based sorting algorithms.
+
+Radix Sort is another sorting algorithm that sorts numbers by processing individual digits from the least significant digit (LSD) to the most significant digit (MSD) or vice versa. It is a non-comparative integer sorting algorithm that exploits the structure of the number representation to achieve sorting. Radix Sort can be used for integers, strings, or other types of data with a well-defined digit-wise ordering.
+Radix Sort has a time complexity of O(k * n), where n is the number of elements and k is the average number of digits in the input numbers. It is often used when the range of input values is not significantly larger than the number of elements and when the number of digits is relatively small. However, it might not be the most efficient sorting algorithm for small datasets or datasets with a very small range of values
+
+Q1. counting sort
+
+
+#counting sort in python programming
+def countingSort(list):
+    size=len(list)
+    output=[0]*size
+    #initialize count aray
+    count=[0]*10
+    #store the count of each element in count array
+    for i in range(0,size):
+        count[list[i]] +=1
+    #store the cummulative count
+    for j in range (1,10):
+        count[j] += count[j-1]
+    #find the index of each element of the orignal array
+    #place the elements in output array
+    a=size-1
+    while a>=0:
+        output[count[list[a]] -1] = list[a]
+        count[list[a]] -= 1
+        a -= 1
+    #copy the sorted elements into orignal array
+    for k in range(0,size):
+        list[k] = output[k]
+data= [4,2,2,8,3,3,1]
+countingSort(data)
+print("sorted array in asending order: ")
+print(data)
+
+
+output
+sorted array in asending order: 
+[1, 2, 2, 3, 3, 4, 8]
+
+
+q2. radix sort
+
+#radix sort
+def counting_sort(list, place):
+    size = len(list)
+    output = [0] * size
+    count = [0] * 10
+
+    for i in range(0, size):
+        index = list[i] // place
+        count[index % 10] += 1
+
+    for j in range(1, 10):
+        count[j] += count[j-1]
+
+    k=size-1
+    while k>=0:
+        index= list[k] //place
+        output[count[index % 10] - 1] = list[k]
+        count[index % 10] -= 1
+        k -= 1
+    for a in range(0,size):
+        list[a] = output[a]
+
+def radix_sort(list):
+    m=max(list)
+    place = 1
+    while m // place > 0:
+        counting_sort(list, place)
+        place *= 10
+
+list1=[121, 432, 564, 23, 1, 45, 788]
+radix_sort(list1)
+print(list1)
+
+
+output
+[1, 23, 45, 121, 432, 564, 788]

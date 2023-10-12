@@ -1,0 +1,220 @@
+*************** DS practical 10 *****************
+Tree algorithum - I
+
+Q1. WAP to store and display tree and display the element in python
+
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.children = []
+
+    def add_child(self, child_node):
+        self.children.append(child_node)
+
+    def display_tree(self, level=0):
+        indent = "  " * level
+        print(indent + self.value)
+        for child in self.children:
+            child.display_tree(level + 1)
+
+# Insert edges and build the tree
+edges = [("Root", "Child 1"), ("Root", "Child 2"), ("Root", "Child 3"),
+         ("Child 1", "Child 1.1"), ("Child 1", "Child 1.2"),
+         ("Child 2", "Child 2.1"),
+         ("Child 3", "Child 3.1"), ("Child 3", "Child 3.2")]
+
+nodes = {}
+for parent, child in edges:
+    if parent not in nodes:
+        nodes[parent] = TreeNode(parent)
+    if child not in nodes:
+        nodes[child] = TreeNode(child)
+    nodes[parent].add_child(nodes[child])
+
+# Display the tree
+nodes["Root"].display_tree()
+
+output:
+Root
+  Child 1
+    Child 1.1
+    Child 1.2
+  Child 2
+    Child 2.1
+  Child 3
+    Child 3.1
+    Child 3.2
+
+Q2. WAP to construct binary tree
+
+class Node:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.value = key
+
+def insert(root, key):
+    if root is None:
+        return Node(key)
+    else:
+        if root.value < key:
+            root.right = insert(root.right, key)
+        else:
+            root.left = insert(root.left, key)
+    return root
+
+def build_tree(keys):
+    root = None
+    for key in keys:
+        root = insert(root, key)
+    return root
+
+def print_tree_inorder(node, level=0, prefix="Root:"):
+    if node is not None:
+        print("  " * level + prefix, node.value)
+        if node.left is not None or node.right is not None:
+            print_tree_inorder(node.left, level + 1, "L---")
+            print_tree_inorder(node.right, level + 1, "R---")
+
+# Example usage
+keys = [5, 3, 8, 2, 4, 7, 9]
+root = build_tree(keys)
+print_tree_inorder(root)
+
+output:
+Root: 5
+  L--- 3
+    L--- 2
+    R--- 4
+  R--- 8
+    L--- 7
+    R--- 9
+
+Q3. WAP for inorder , postorder and preorder traversal of binary tree.
+
+class Node:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.value = key
+
+def insert(root, key):
+    if root is None:
+        return Node(key)
+    else:
+        if root.value < key:
+            root.right = insert(root.right, key)
+        else:
+            root.left = insert(root.left, key)
+    return root
+
+def build_tree(keys):
+    root = None
+    for key in keys:
+        root = insert(root, key)
+    return root
+
+def preorder_traversal(node):
+    result = []
+    stack = [node]
+    while stack:
+        current = stack.pop()
+        if current:
+            result.append(current.value)
+            stack.append(current.right)
+            stack.append(current.left)
+    return result
+
+def postorder_traversal(node):
+    result = []
+    stack = [node]
+    while stack:
+        current = stack.pop()
+        if current:
+            result.insert(0, current.value)
+            stack.append(current.left)
+            stack.append(current.right)
+    return result
+
+def inorder_traversal(node):
+    result = []
+    stack = []
+    current = node
+    while stack or current:
+        if current:
+            stack.append(current)
+            current = current.left
+        else:
+            current = stack.pop()
+            result.append(current.value)
+            current = current.right
+    return result
+
+# Example usage
+keys = [5, 3, 8, 2, 4, 7, 9]
+root = build_tree(keys)
+
+print("Preorder:", preorder_traversal(root))
+print("Postorder:", postorder_traversal(root))
+print("Inorder:", inorder_traversal(root))
+
+
+output:
+Preorder: [5, 3, 2, 4, 8, 7, 9]
+Postorder: [2, 4, 3, 7, 9, 8, 5]
+Inorder: [2, 3, 4, 5, 7, 8, 9]
+
+Q4. WAP to build up a tree for an expression written in postfix notation and evaluate it in python
+
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+
+def build_expression_tree(postfix_expression):
+    stack = []
+    operators = set(['+', '-', '*', '/'])
+
+    for token in postfix_expression:
+        if token not in operators:
+            stack.append(TreeNode(token))
+        else:
+            right_operand = stack.pop()
+            left_operand = stack.pop()
+            operator_node = TreeNode(token)
+            operator_node.left = left_operand
+            operator_node.right = right_operand
+            stack.append(operator_node)
+
+    return stack[0]
+
+
+def evaluate_expression_tree(node):
+    if node.value.isdigit():
+        return int(node.value)
+
+    left_value = evaluate_expression_tree(node.left)
+    right_value = evaluate_expression_tree(node.right)
+
+    if node.value == '+':
+        return left_value + right_value
+    elif node.value == '-':
+        return left_value - right_value
+    elif node.value == '*':
+        return left_value * right_value
+    elif node.value == '/':
+        return left_value // right_value
+
+
+postfix_expression = "45*2+"
+expression_tree = build_expression_tree(postfix_expression)
+print("Expression Tree Built.")
+result = evaluate_expression_tree(expression_tree)
+print("Evaluation Result:", result)
+
+output:
+Expression Tree Built.
+Evaluation Result: 22
+
